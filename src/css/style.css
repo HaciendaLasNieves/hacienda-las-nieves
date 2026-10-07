@@ -25,7 +25,11 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 8px); -webkit-text-size-adjust: 100%; }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + env(safe-area-inset-top, 0px) + 8px);
+  -webkit-text-size-adjust: 100%;
+}
 html.menu-open, html.menu-open body { overflow: hidden; }
 body { margin: 0; font: 400 1rem/1.6 var(--font-body); color: var(--gris-texto); background: var(--crema); }
 img { display: block; max-width: 100%; height: auto; }
@@ -93,8 +97,18 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .dd-panel a { padding: .75rem 0 .75rem 1rem; border-bottom: 0; font: 400 1.05rem/1.2 var(--font-body); color: var(--texto-oscuro); }
 
 /* ---------- Hero ---------- */
-.hero { position: relative; isolation: isolate; min-height: 100svh; overflow: hidden; color: var(--blanco); background: var(--verde-prof); }
-.hero-media { position: absolute; inset: -12% 0 0; z-index: -3; transform: translate3d(0, var(--py, 0px), 0); will-change: transform; }
+.hero {
+  position: relative; isolation: isolate;
+  min-height: 100svh;
+  overflow: hidden;
+  color: var(--blanco);
+  background: var(--verde-prof);
+}
+.hero-media {
+  position: absolute; inset: -12% 0 0; z-index: -3;
+  transform: translate3d(0, var(--py, 0px), 0);
+  will-change: transform;
+}
 .hero-media picture, .hero-media img { display: block; width: 100%; height: 100%; }
 .hero-media img { object-fit: cover; object-position: 50% 62%; transform-origin: 60% 55%; animation: hero-zoom 14s ease-out both; }
 @keyframes hero-zoom { from { transform: scale(1.12); } to { transform: scale(1.02); } }
@@ -105,8 +119,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
     linear-gradient(90deg, rgba(16, 42, 31, .55), transparent 72%);
 }
 .hero-light {
-  position: absolute; inset: 0; z-index: -1; pointer-events: none; mix-blend-mode: screen;
-  background: radial-gradient(520px circle at var(--mx, 72%) var(--my, 28%), rgba(213, 147, 78, .2), transparent 62%);
+  position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(520px circle at var(--mx, 72%) var(--my, 28%), rgba(213, 147, 78, .18), transparent 62%);
 }
 
 .hero-inner {
@@ -114,7 +128,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   min-height: 100svh; max-width: 1240px; margin: 0 auto;
   padding: calc(var(--header-h) + 2rem + env(safe-area-inset-top, 0px)) 1.25rem calc(1.25rem + env(safe-area-inset-bottom, 0px));
 }
-.hero-logo { width: clamp(104px, 28vw, 190px); margin-bottom: 1rem; filter: drop-shadow(0 6px 18px rgba(0, 0, 0, .45)); }
+.hero-logo-wrap { display: block; margin-bottom: 1rem; }
+.hero-logo { width: clamp(96px, 26vw, 190px); filter: drop-shadow(0 6px 18px rgba(0, 0, 0, .45)); }
 .hero h1 { max-width: 18ch; margin: 0; font: 700 clamp(2.05rem, 8.4vw, 4.4rem)/1.06 var(--font-title); letter-spacing: -.01em; text-wrap: balance; text-shadow: 0 2px 24px rgba(0, 0, 0, .35); }
 .hero h1 em { font-style: normal; color: var(--dorado); }
 .lead { max-width: 52ch; margin: 1.1rem 0 1.6rem; color: var(--texto-oscuro); font-size: clamp(.98rem, 3.6vw, 1.15rem); }
@@ -152,7 +167,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .stat::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s; background: radial-gradient(220px circle at var(--gx, 50%) var(--gy, 0%), rgba(255, 255, 255, .22), transparent 65%); }
 .stat:hover { border-color: rgba(196, 154, 58, .7); }
 .stat:hover::before { opacity: 1; }
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .stat { background: rgba(16, 42, 31, .78); } }
 .stat-num { margin: 0; font: 700 clamp(1.7rem, 7vw, 2.5rem)/1 var(--font-title); color: var(--dorado); }
 .stat-unit { margin-left: .3rem; font: 500 .85rem var(--font-body); color: var(--texto-oscuro); }
 .stat-label { margin: .4rem 0 .8rem; font-size: .8rem; line-height: 1.35; color: var(--texto-oscuro); }
@@ -167,11 +181,29 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 @media (max-width: 359px) { .brand span { display: none; } }
 
+/* ---------- Móvil: aspecto reservado para evitar CLS ---------- */
+@media (max-width: 767px) {
+  .hero-media { aspect-ratio: 832 / 1248; }
+}
+
+/* ---------- Botones apilados en pantallas angostas ---------- */
+@media (max-width: 500px) {
+  .actions { flex-direction: column; align-items: stretch; }
+  .btn { width: 100%; }
+}
+
+/* ---------- Tablet ---------- */
 @media (min-width: 768px) {
   .hero-inner { padding-inline: 2rem; }
   .nav { padding: 0 2rem; }
   .stats { grid-template-columns: repeat(4, 1fr); gap: 1rem; }
   .stat { padding: 1.25rem; }
+}
+
+/* ---------- Escritorio con ventana baja: hero se ajusta al contenido ---------- */
+@media (min-width: 768px) and (max-height: 800px) {
+  .hero { min-height: auto; padding-block: 4rem; }
+  .hero-inner { min-height: auto; }
 }
 
 /* ---------- Escritorio ---------- */
@@ -207,6 +239,14 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
   .hero-copy { margin-block: auto; }
   .hero h1 { max-width: 15ch; }
+}
+
+/* ---------- Fallback: sin backdrop-filter ---------- */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-header::before { background: rgba(16, 42, 31, .85); }
+  .site-header.is-scrolled::before { background: rgba(244, 240, 230, .97); }
+  .stat { background: rgba(16, 42, 31, .78); }
+  .dd-panel { background: rgba(16, 42, 31, .99); }
 }
 
 /* ---------- Accesibilidad: movimiento reducido ---------- */
