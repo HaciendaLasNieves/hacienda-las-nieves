@@ -491,8 +491,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .raza-media img {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 4 / 3;
   object-fit: cover;
+  object-position: center;
   transition: transform 1.2s var(--ease);
 }
 .raza:hover .raza-media img { transform: scale(1.04); }
@@ -507,5 +508,4 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   background: linear-gradient(180deg, transparent 0%, rgba(16, 42, 31, .9) 100%);
 }
 
-.raza-body {
-  padding: 1.25rem 1
+.raza-
