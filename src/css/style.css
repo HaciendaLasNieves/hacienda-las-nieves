@@ -246,8 +246,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 .la-finca {
   position: relative;
-  background: var(--verde-nat);
-  color: var(--blanco);
+  background: var(--crema);
+  color: var(--gris-texto);
   padding: clamp(3.5rem, 9vw, 7rem) 1.25rem;
   overflow: hidden;
 }
@@ -258,8 +258,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(600px circle at 100% 0%, rgba(196, 154, 58, .12), transparent 60%),
-    radial-gradient(700px circle at 0% 100%, rgba(16, 42, 31, .35), transparent 60%);
+    radial-gradient(600px circle at 100% 0%, rgba(196, 154, 58, .08), transparent 60%),
+    radial-gradient(700px circle at 0% 100%, rgba(63, 112, 70, .06), transparent 60%);
 }
 
 .la-finca-inner {
@@ -279,20 +279,20 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   display: inline-block;
   margin: 0 0 1rem;
   padding: .35rem .85rem;
-  border: 1px solid rgba(196, 154, 58, .6);
+  border: 1px solid rgba(196, 154, 58, .55);
   border-radius: 999px;
   font: 600 .75rem/1 var(--font-body);
   letter-spacing: .14em;
   text-transform: uppercase;
-  color: var(--dorado-claro);
-  background: rgba(196, 154, 58, .12);
+  color: var(--dorado-texto);
+  background: rgba(196, 154, 58, .1);
 }
 
 .la-finca h2 {
   margin: 0 0 1.75rem;
   font: 700 clamp(1.8rem, 5.6vw, 2.9rem)/1.12 var(--font-title);
   letter-spacing: -.01em;
-  color: var(--dorado);
+  color: var(--dorado-texto);
   text-wrap: balance;
 }
 
@@ -302,14 +302,14 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   margin: 0;
   font-size: clamp(1rem, 2.8vw, 1.08rem);
   line-height: 1.72;
-  color: rgba(255, 255, 255, .93);
+  color: var(--gris-texto);
 }
 .la-finca-prose p strong {
-  color: var(--dorado-claro);
+  color: var(--dorado-texto);
   font-weight: 700;
 }
 .la-finca-prose p em {
-  color: var(--dorado);
+  color: var(--dorado-texto);
   font-style: italic;
   font-weight: 600;
 }
@@ -327,18 +327,18 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   flex-direction: column;
   gap: .2rem;
   padding: .9rem 0;
-  border-bottom: 1px solid rgba(196, 154, 58, .2);
+  border-bottom: 1px solid rgba(196, 154, 58, .18);
 }
 .la-finca-facts li:last-child { border-bottom: 0; }
 .la-finca-fact-label {
   font: 600 .72rem/1 var(--font-body);
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, .7);
+  color: var(--gris-sec);
 }
 .la-finca-fact-value {
   font: 500 1rem/1.4 var(--font-body);
-  color: var(--dorado-claro);
+  color: var(--dorado-texto);
 }
 
 .la-finca-media {
@@ -347,9 +347,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, .15) inset,
-    0 20px 45px -20px rgba(0, 0, 0, .55),
-    0 8px 20px -10px rgba(0, 0, 0, .35);
+    0 1px 0 rgba(255, 255, 255, .6) inset,
+    0 20px 45px -20px rgba(16, 42, 31, .35),
+    0 8px 20px -10px rgba(16, 42, 31, .2);
   background: var(--verde-prof);
 }
 .la-finca-media picture { display: block; }
@@ -508,4 +508,4 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 .raza-body {
-  padding: 1.25rem 1.35
+  padding: 1.25rem 1
