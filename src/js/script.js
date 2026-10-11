@@ -1,4 +1,5 @@
-/* Hacienda Las Nieves · script.js · Bloque 1: Header + Hero */
+/* Hacienda Las Nieves · script.js */
+
 (() => {
   "use strict";
 
@@ -59,7 +60,8 @@
       dropdowns.forEach((dd) => {
         if (dd === except) return;
         dd.classList.remove("open");
-        $(".dd-toggle", dd).setAttribute("aria-expanded", "false");
+        const btn = $(".dd-toggle", dd);
+        if (btn) btn.setAttribute("aria-expanded", "false");
       });
     };
 
@@ -74,6 +76,7 @@
 
     dropdowns.forEach((dd) => {
       const button = $(".dd-toggle", dd);
+      if (!button) return;
       button.addEventListener("click", () => {
         const open = !dd.classList.contains("open");
         closeDropdowns(dd);
@@ -92,9 +95,12 @@
       closeDropdowns();
     });
 
-    desktopQuery.addEventListener("change", (event) => {
-      if (event.matches) setOpen(false);
-    });
+    const closeOnDesktop = (event) => { if (event.matches) setOpen(false); };
+    if (desktopQuery.addEventListener) {
+      desktopQuery.addEventListener("change", closeOnDesktop);
+    } else if (desktopQuery.addListener) {
+      desktopQuery.addListener(closeOnDesktop);
+    }
   }
 
   /* Contador animado de cifras */
@@ -115,9 +121,11 @@
     requestAnimationFrame(step);
   }
 
-  /* Aparición al hacer scroll, barras animadas y contadores */
+  /* Aparición al hacer scroll + contadores + barras */
   function initReveal() {
     const items = $$(".reveal");
+    if (!items.length) return;
+
     if (reduceMotion || !("IntersectionObserver" in window)) {
       items.forEach((el) => el.classList.add("in-view"));
       return;
@@ -197,7 +205,9 @@
     const sections = new Map();
 
     links.forEach((link) => {
-      const target = $(link.getAttribute("href"));
+      const href = link.getAttribute("href");
+      if (!href || href === "#") return;
+      const target = $(href);
       if (target) sections.set(target, link);
     });
     if (!sections.size) return;
@@ -206,11 +216,35 @@
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
         links.forEach((link) => link.removeAttribute("aria-current"));
-        sections.get(entry.target).setAttribute("aria-current", "true");
+        const link = sections.get(entry.target);
+        if (link) link.setAttribute("aria-current", "true");
       });
     }, { rootMargin: "-45% 0px -50% 0px" });
 
     sections.forEach((_, section) => observer.observe(section));
+  }
+
+  /* Botón flotante de WhatsApp: aparece después del hero */
+  function initWhatsappFlotante() {
+    const btn = $(".wa-flotante");
+    if (!btn) return;
+
+    let ticking = false;
+
+    const update = () => {
+      const y = window.scrollY;
+      const threshold = Math.max(window.innerHeight * 0.6, 400);
+      btn.classList.toggle("is-visible", y > threshold);
+      ticking = false;
+    };
+
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    }, { passive: true });
+    update();
   }
 
   function init() {
@@ -220,6 +254,7 @@
     initParallax();
     initPointerEffects();
     initActiveLinks();
+    initWhatsappFlotante();
   }
 
   if (document.readyState === "loading") {
