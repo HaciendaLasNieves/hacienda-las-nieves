@@ -975,32 +975,53 @@ a.contacto-item:hover {
   .footer-brand { grid-column: auto; }
   .footer-bottom { flex-direction: row; justify-content: space-between; text-align: left; }
 }
-
 /* =========================================================
    WHATSAPP FLOTANTE
    ========================================================= */
 
 .wa-flotante {
-  position: fixed; right: 1rem; bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  position: fixed;
+  right: .75rem;
+  bottom: calc(.75rem + env(safe-area-inset-bottom, 0px));
   z-index: 40;
-  display: inline-grid; place-items: center;
-  width: 56px; height: 56px; border-radius: 50%;
-  background: var(--whatsapp); color: var(--blanco);
-  box-shadow: 0 10px 28px -8px rgba(37, 211, 102, .6), 0 4px 12px rgba(0, 0, 0, .2);
-  transition: transform .3s var(--ease), background .3s, box-shadow .3s;
-  opacity: 0; visibility: hidden; transform: translateY(20px) scale(.85);
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--whatsapp);
+  color: var(--blanco);
+  box-shadow: 0 4px 12px -4px rgba(37, 211, 102, .5), 0 2px 6px rgba(0, 0, 0, .15);
+  transition: transform .3s var(--ease), background .3s, box-shadow .3s, opacity .3s, visibility .3s;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
 }
-.wa-flotante.is-visible { opacity: 1; visibility: visible; transform: none; }
-.wa-flotante:hover { background: var(--whatsapp-hover); transform: translateY(-3px) scale(1.05); box-shadow: 0 14px 34px -8px rgba(37, 211, 102, .75), 0 6px 16px rgba(0, 0, 0, .25); }
-.wa-flotante:active { transform: scale(.95); }
-.wa-flotante svg { width: 28px; height: 28px; }
+.wa-flotante.is-visible {
+  opacity: .92;
+  visibility: visible;
+  transform: none;
+}
+.wa-flotante:hover {
+  background: var(--whatsapp-hover);
+  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px -4px rgba(37, 211, 102, .65), 0 3px 8px rgba(0, 0, 0, .2);
+}
+.wa-flotante:active { transform: scale(.94); }
+.wa-flotante svg { width: 20px; height: 20px; }
 
 @media (min-width: 768px) {
-  .wa-flotante { right: 1.5rem; bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px)); width: 62px; height: 62px; }
-  .wa-flotante svg { width: 32px; height: 32px; }
+  .wa-flotante {
+    right: 1rem;
+    bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+    width: 48px;
+    height: 48px;
+  }
+  .wa-flotante svg { width: 22px; height: 22px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .miembro, .contacto-item, .footer-redes a, .wa-flotante { transition: none; }
   .miembro:hover, a.contacto-item:hover, .footer-redes a:hover, .wa-flotante:hover { transform: none; }
-                       }
+}
