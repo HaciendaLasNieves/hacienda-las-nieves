@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hacienda-las-nieves.pages.dev/sitemap.xml
